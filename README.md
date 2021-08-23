@@ -18,4 +18,4 @@ Usuário: MICHEL
 SENHA: 123456
 
 # Funcionalidade
-Um simpes app com CRUD de usuários, usa REST TEMPLATE para buscar USERS da API DO GIT e persiste esses dados no banco de dados na tabela DEVELOPER, mostrando na tela de DEVS os devs.
+Um simples app com CRUD de usuários, usa REST TEMPLATE para buscar USERS da API DO GIT e persiste esses dados no banco de dados na tabela DEVELOPER, mostrando na tela de DEVS os devs.
