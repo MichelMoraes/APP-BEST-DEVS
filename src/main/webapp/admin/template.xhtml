@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe = "http://primefaces.org/ui/extensions">
+
+
+<f:view contentType="text/html">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="shortcut icon" type="image/x-icon"
+			href="/resources/imagens/favicon.ico" />
+		<title><ui:insert name="titulo">Sistema Best Devs from Git</ui:insert></title>
+		<h:outputStylesheet library="css" name="estilo.css" />
+		<h:outputStylesheet library="css" name="estilo_primefaces.css" />
+		<h:outputStylesheet
+			name="webjars/font-awesome/4.4.0/css/font-awesome.css" />
+		<h:outputScript library="js" name="funcoes.js" />
+		<h:outputScript library="js" name="locale-primefaces.js" />
+	</h:head>
+
+	<h:body>
+		<h:form id="formMenu">
+
+
+
+			<h:panelGrid columns="1" bgcolor="#fff" width="100%">
+				<f:facet name="header">
+
+					<h:head>
+						<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+						<h:outputStylesheet library="css" name="estilo.css" />
+						<h:outputStylesheet library="css" name="estilo_primefaces.css" />
+						<h:outputScript library="js" name="funcoes.js" />
+						<h:outputScript library="js" name="locale-primefaces.js" />
+					</h:head>
+
+
+
+					<p:dialog widgetVar="dlgAguarde" draggable="false" closable="false"
+						resizable="false" showHeader="false">
+						<h:panelGrid columns="2" style="vertical-align: middle;">
+							<p:graphicImage name="espera.gif" library="imagens" />
+							<h:outputText value="Aguarde..." />
+						</h:panelGrid>
+					</p:dialog>
+					<p:ajaxStatus id="ajs1" onstart="PF('dlgAguarde').show()"
+						oncomplete="PF('dlgAguarde').hide()" />
+
+
+
+					<!-- Logotipo Sistema -->
+					<div
+						style="float: left; margin-left: 5px; margin-top: 18px; padding: 7px;">
+						<h:graphicImage library="imagens" name="logotipo.png"
+							style="top:0px; padding-top:0px;"
+							onclick="window.location='index.xhtml';" />
+					</div>
+
+					<!--Nome Sistema -->
+					<div
+						style="float: left; margin-left: 4px; margin-top: 37px; padding: 10px;">
+						<h:outputText padding-top="20px"
+							value="#{configuracaoController.configuracao.nomeFantasia}"
+							margin-top="0px" padding="0px"
+							style="color:black; font-family:Arial; font-style:italic; ont-weight: bold; font-size: 26pt;text-shadow: #000 1px 1px 0px;" />
+					</div>
+
+
+					<!-- Empresa Titulo  -->
+					<div
+						style="float: left; margin-left: 300px; margin-top: -85px; padding: 0px;">						
+					</div>
+
+				</f:facet>
+
+			</h:panelGrid>
+
+
+
+
+			<p:menubar>
+				<f:facet name="options">
+					
+				
+					<p:commandButton update="@form" process="@this"
+						style="height:30px; margin-top:7px;" title="Início"
+						onclick="window.location='index.xhtml';" icon="principal" />
+					<p:commandButton style="height:30px; margin-top:7px;" title="Sair"
+						icon="logout" update="@form" process="@this"
+						action="javascript:void(0)"
+						onclick="if(confirm('Deseja realmente sair?')) window.location='${request.contextPath}/j_spring_security_logout'; " />
+
+				 
+
+				</f:facet>
+
+				<p:submenu label="Usuários">
+					<p:menuitem value="Usuário" url="formusuario.xhtml" />
+					<p:separator />
+					
+				</p:submenu>
+
+
+
+				<p:submenu label="Developers">
+					<p:menuitem value="Exibir developers" url="index.xhtml">
+					</p:menuitem>
+
+				</p:submenu>
+
+
+				<p:submenu label="Sair">
+					<p:menuitem value="Sair"
+						url="${request.contextPath}/j_spring_security_logout" />						
+				</p:submenu>
+
+			</p:menubar>
+		</h:form>
+		<ui:insert name="conteudo">
+		</ui:insert>
+
+		<!-- Posicionamento da Faixa de Cima -->
+		<div
+			style="float: left;; margin-left: -10px; margin-top: -500px; padding: 00px;">
+
+			<p:layoutUnit id="faixadecima" position="North" size="50"
+				resizable="false" closable="false" collapsible="true"
+				style="border: none !important; padding: 0px;">
+				<div id="rodape" style="margin-top: 100px; padding: 0px;">
+					<h:panelGrid columns="2" style="width:100%;"
+						columnClasses="colunaEsquerda, colunaDireita">
+						<h:panelGrid columns="2">
+							<h:outputText rendered="#{request.remoteUser ne null}"
+								value="Operador Atual: #{configuracaoController.operadorLogado}" />
+							<h:outputText rendered="#{request.remoteUser ne null}"
+								value="#{contextoBean.operadorLogado.nome}"
+								style="font-weight: bold;" />
+						</h:panelGrid>
+					</h:panelGrid>
+
+				</div>
+
+			</p:layoutUnit>
+
+		</div>
+
+
+
+
+	</h:body>
+
+</f:view>
+
+
+</html>

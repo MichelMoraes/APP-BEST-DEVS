@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<body>
+
+
+	<ui:composition template="template.xhtml">
+		<ui:define name="conteudo">
+
+
+			<h:form id="frmIndex">
+
+				<p:growl life="5000" id="gro" />
+
+				<p:spacer />
+				<p:spacer />
+				<p:spacer />
+
+				<p:panel style="width: 65%;" rendered="true">
+
+					<p:dataTable value="#{developerController.listaDev}"
+						resizeMode="true" reflow="true" rendered="true" var="dev"
+						widgetVar="devTable" rows="10" resizableColumns="true"
+						style="text-align:center" paginator="true" id="dtPac"
+						filteredValue="#{pacienteController.pacientesFiltrados}"
+						paginatorAlwaysVisible="false" border="1"
+						emptyMessage="Não existem resultados para esta pesquisa.">
+						<f:facet name="header">
+
+							<p:outputLabel value="Lista dos Best Dev from Git" />
+						</f:facet>
+
+
+						<p:column sortBy="#{dev.codDeveloper}" resizable="true"
+							filterBy="#{dev.codDeveloper}" headerText="Cod of System"
+							filterMatchMode="contains" styleClass="pesquisarPacColCod"
+							filterStyleClass="pesquisarPacColCodFilter">
+							<h:outputText value="#{dev.codDeveloper}" />
+						</p:column>
+
+
+
+						<p:column sortBy="#{dev.id}" resizable="true"
+							filterBy="#{dev.id}" headerText="Id Git"
+							filterMatchMode="contains" styleClass="pesquisarPacColCod"
+							filterStyleClass="pesquisarPacColCodFilter">
+							<h:outputText value="#{dev.id}" />
+						</p:column>
+						
+						
+						<p:column sortBy="#{dev.login}" filterBy="#{dev.login}"
+							resizable="true"
+							filterFunction="#{configuracaoController.filtrarDataTableComAcentos}"
+							headerText="Login do Dev no Git" filterMatchMode="contains"
+							styleClass="pesquisarpaciresaColNome"
+							filterStyleClass="pesquisarpacresaColNomeFilter">
+							<f:facet name="filter">
+								<p:inputText styleClass="maiusculo"
+									onkeyup="soMaiusculas(this); PF('devTable').filter(); "
+									size="30" />
+							</f:facet>
+
+							<h:outputText value="#{dev.login}" />
+						</p:column>
+
+						<!-- 
+						<p:column sortBy="#{paci.telefone}" filterBy="#{paci.telefone}"
+							resizable="true" toggleable="true" visible="true"
+							headerText="Telefone - Celular" filterMatchMode="contains"
+							styleClass="pesquisarpaciresaColbairro"
+							filterStyleClass="pesquisarpaciresaColbairroFilter">
+							<h:outputText value="#{paci.telefone} - #{paci.celular}" />
+						</p:column> -->
+					</p:dataTable>
+
+
+
+
+
+				</p:panel>
+
+				<p:commandButton update="@form" process="@this"
+					style="height:30px; margin-top:7px;" title="Importar dados dos Devs do Git para o BD" 
+					actionListener="#{developerController.importarDadosApiGit}"  />
+
+
+
+
+
+
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+
+
+</body>
+</html>

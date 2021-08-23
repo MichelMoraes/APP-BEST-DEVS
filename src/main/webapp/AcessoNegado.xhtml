@@ -1,0 +1,28 @@
+<ui:composition template="/templates/templateprincipal.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Acesso negado</ui:define>
+	
+	<ui:define name="corpo">
+	
+	<p:dialog header="" visible="true" closable="false" resizable="false"  position="center" modal="false">	
+	<h:panelGrid columns="1" styleClass="grid-login" style="text-align: center">						
+				   <f:facet name="header"  style="text-align:center; font-size: 20px ;">
+			
+			<p:outputLabel value="Você não possui permissão para acessar esta página!"  style="text-align:center; font-size: 18px; font-family: Tahoma, Verdana, Arial, Sans-Serif; color: #161D26; "/>	
+				   <p:separator></p:separator>
+					<p:commandButton style="height:30px; margin-top:7px; with:5px"
+							 process="@this"
+							onclick="window.location='index.xhtml';" icon="principal" />	
+				<p:outputLabel value="Clique aqui para voltar."  style="text-align:center; font-size: 10px; font-family: Tahoma, Verdana, Arial, Sans-Serif; color: #161D26; "/>
+						
+					</f:facet>
+		</h:panelGrid>
+		</p:dialog>
+	</ui:define>
+	
+</ui:composition>

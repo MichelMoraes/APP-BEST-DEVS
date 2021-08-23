@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition template="/templates/templateprincipal.xhtml">
+
+		<h:head>
+
+
+		</h:head>
+
+
+
+		<ui:define name="corpo">
+			
+			<!-- =========  LOGIN =============== -->
+			
+			<form action="j_spring_security_check" method="post">
+				<p:messages rendered="" />
+
+
+				<div id="login-dialog">
+
+					<p:dialog header="" visible="true" closable="false"
+						resizable="false" position="center">
+
+						<h:panelGrid columns="2" styleClass="grid-login"
+							style="text-align: center">
+							
+							<f:facet name="header"
+								style="text-align:center; font-size: 20px ;">
+
+								<p:outputLabel value="Autenticação"
+									style="text-align:center; font-size: 18px; font-family: Tahoma, Verdana, Arial, Sans-Serif; color: #161D26; " />
+
+							</f:facet>
+
+							<p:outputLabel value="Login:" />
+
+							<p:inputText size="20" type="text" name="login" id="login"
+								styleClass="campos" onkeyup="soMaiusculas(this)" />
+
+							<p:outputLabel value="Senha:" />
+							<p:inputText size="20" type="password" name="senha" id="senha"
+								styleClass="campos" onkeyup="soMaiusculas(this)" />
+
+
+
+
+
+							<f:facet name="footer" style="text-align:center; font-size: 20px">
+								<p:spacer/>
+								<p:commandButton type="submit" onclick="Entrar" value="Entrar"
+									id="submit" name="submit" style="text-align:center" />
+							</f:facet>
+
+
+						</h:panelGrid>
+						<h:outputText value="Usuário ou Senha Inválido!"
+							rendered="#{param.erro}" style="horizontal-align:center" />
+
+					</p:dialog>
+
+
+					<div
+						style="relative: left; margin-left: 15px; margin-top: 430px; color: red; padding: 50px;">
+
+					</div>
+				</div>
+			</form>
+
+
+
+			
+
+		</ui:define>
+
+	</ui:composition>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+<h:head>
+
+
+</h:head>
+
+<body>
+	<ui:composition template="template.xhtml">
+		<ui:define name="conteudo">
+			<h:form>
+
+				<p:messages />
+
+				<p:tabView>
+
+					<p:tab title="Cadastro">
+						<p:panelGrid columns="2">
+
+							<f:facet name="header">
+						Dados do Usuário
+					</f:facet>
+
+							<h:outputLabel value="Perfil" />
+							<p:selectOneMenu value="#{usuarioController.usuario.perfil}"
+								converter="#{perfilConverter}" style="width:200px"
+								required="true" requiredMessage="Selecione um Perfil!">
+								<f:selectItem itemValue="" itemLabel="Selecione um perfil" />
+
+								<f:selectItems value="#{perfilController.perfils}" var="p"
+									itemLabel="#{p.descricao_final}" required="=true" />
+
+							</p:selectOneMenu>
+							
+							
+
+							<h:outputLabel value="Nome:" />
+							<p:inputText value="#{usuarioController.usuario.nome}" size="35"
+								required="true" requiredMessage="Insira um Nome!"
+								autocomplete="off" styleClass="campos"
+								onkeyup="soMaiusculas(this)" />
+
+							<h:outputLabel value="Login:" />
+							<p:inputText value="#{usuarioController.usuario.login}" size="35"
+								required="true" requiredMessage="Insira um Login!"
+								autocomplete="off" styleClass="campos"
+								onkeyup="soMaiusculas(this)" />
+
+							<h:outputLabel value="Senha:" />
+							<p:inputText type="password"
+								value="#{usuarioController.usuario.senha}" size="35"
+								maxlength="10" required="true"
+								requiredMessage="Insira uma Senha!" autocomplete="off"
+								styleClass="campos" onkeyup="soMaiusculas(this)" />
+
+							<h:outputLabel value="Ativo:" />
+							<p:selectBooleanCheckbox
+								value="#{usuarioController.usuario.ativo}" />
+
+							<f:facet name="footer">
+								<div style="text-align: center">
+
+
+
+									<p:commandButton actionListener="#{usuarioController.salvar}"
+										icon="ui-icon-check" value="Salvar" update="@form"
+										process="@form" />
+
+									<p:commandButton icon="ui-icon-check" value="Limpar"
+										update="@form" process="@this"
+										actionListener="#{usuarioController.cancelar}" />
+
+
+								</div>
+							</f:facet>
+
+						</p:panelGrid>
+						<h:inputHidden  value="#{usuarioController.usuario.codusuario}"/>
+					</p:tab>
+
+
+					<p:tab title="Lista de Usuários">
+					
+						<p:dataTable value="#{usuarioController.usuarios}" var="usu"
+							rows="5" paginator="true" paginatorAlwaysVisible="false"
+							border="1" style="text-align:center" id="id">
+							
+														
+							
+							<f:facet name="header"> Lista de usuários </f:facet>
+							
+							<!-- 
+							<f:facet name="footer">	
+							<p:commandButton value="Imprimir" type="button"
+										icon="ui-icon-print" style="margin-bottom: 0px;  margin-right: 2px">
+										<p:printer target="id" />
+								</p:commandButton>
+								
+								</f:facet>
+								<h:commandLink>
+									<h:graphicImage library="imagens" name="logoconsultorio.png"  width="24" />
+										<p:dataExporter type="xls" target="id" fileName="usu" />
+								</h:commandLink>
+							
+							</f:facet>   -->
+							
+						
+								
+
+							
+							
+						
+
+
+							<p:column sortBy="#{usu.codusuario}" filterBy="#{usu.codusuario}"
+								headerText="Código" filterMatchMode="contains"
+								styleClass="pesquisarUsuarioColCódigo"
+								filterStyleClass="pesquisarUsuarioColIdFilter">
+								<h:outputText value="#{usu.codusuario}" />
+							</p:column>
+
+
+
+
+							<p:column sortBy="#{usu.nome}" filterBy="#{usu.nome}"
+								headerText="Nome" filterMatchMode="contains"
+								styleClass="pesquisarUsuarioColNome"
+								filterStyleClass="pesquisarUsuarioColNomeFilter">
+								<h:outputText value="#{usu.nome}" />
+							</p:column>
+
+
+							<p:column sortBy="#{usu.login}" filterBy="#{usu.login}"
+								headerText="Login" filterMatchMode="contains"
+								styleClass="pesquisarUsuarioColLogin"
+								filterStyleClass="pesquisarUsuarioColLoginFilter">
+								<h:outputText value="#{usu.login}" />
+							</p:column>
+
+							<p:column sortBy="#{usu.perfil.descricao_final}"
+								filterBy="#{usu.perfil.descricao_final}" headerText="Perfil"
+								filterMatchMode="contains"
+								styleClass="pesquisarUsuarioColPerfil"
+								filterStyleClass="pesquisarUsuarioColPerfilFilter">
+								<h:outputText value="#{usu.perfil.descricao_final}" />
+							</p:column>
+
+
+							<p:column>
+
+								<f:facet name="header">
+									<h3>OPÇÕES</h3>
+								</f:facet>
+								<p:commandButton
+									actionListener="#{usuarioController.excluir}"
+									value="Excluir" update="@form" process="@this"
+									icon="ui-icon-trash" title="Excluir"
+									onclick="if (!confirm('Confirma a exclusão do Usuário #{usu.nome} ?')) return false;">
+								</p:commandButton>
+								<p:commandButton
+									actionListener="#{usuarioController.editar}"
+									icon="ui-icon-pencil" title="Editar" value="Editar"
+									update="@form" process="@this" />
+
+     						</p:column>
+	
+	
+	
+	
+	
+						</p:dataTable>
+
+
+						<!-- 			confirmação de exclusao método alternativo-->
+						<!-- 	<p:confirmDialog 
+		  widgetVar="Confirmacao"
+		  message="Tem certeza que deseja excluir?" header="Aviso"
+		  severity="alert" closable="true">
+		
+	         <p:commandButton value="Sim" title="Sim" alt="Sim"
+	         actionListener="#{usuarioController.excluir(usu)}"
+	         onclick="confirmacao.hide()" 
+	         update="@form" 
+	         process="@this" />
+ 	         
+	         
+	         <p:commandButton value="Não" 
+	         onclick="confirmacao.hide()"	/>
+         </p:confirmDialog>			                     -->
+
+
+
+					</p:tab>
+					
+					
+					
+
+
+					<p:tab title="Imprimir ">
+						<p:dataTable value="#{usuarioController.usuarios}" var="usu"
+							rows="5" paginator="true" paginatorAlwaysVisible="false"
+							border="1" style="text-align:center" id="id2">
+							
+														
+							
+							<f:facet name="header"> Lista de Usuários </f:facet>
+							
+							<f:facet name="footer">	
+							<p:commandButton value="Imprimir" type="button"
+										icon="ui-icon-print" style="margin-bottom: 0px;  margin-right: 2px">
+										<p:printer target="id2" />
+								</p:commandButton>
+								
+								</f:facet>
+							<!-- 	<h:commandLink>
+									<h:graphicImage library="imagens" name="logoconsultorio.png"  width="24" />
+										<p:dataExporter type="xls" target="id" fileName="usu" />
+								</h:commandLink>
+							
+							</f:facet>   -->
+							
+						
+								
+
+							
+							
+						
+
+
+							<p:column sortBy="#{usu.codusuario}" filterBy="#{usu.codusuario}"
+								headerText="Código" filterMatchMode="contains"
+								styleClass="pesquisarUsuarioColCódigo"
+								filterStyleClass="pesquisarUsuarioColIdFilter">
+								<h:outputText value="#{usu.codusuario}" />
+							</p:column>
+
+
+
+
+							<p:column sortBy="#{usu.nome}" filterBy="#{usu.nome}"
+								headerText="Nome" filterMatchMode="contains"
+								styleClass="pesquisarUsuarioColNome"
+								filterStyleClass="pesquisarUsuarioColNomeFilter">
+								<h:outputText value="#{usu.nome}" />
+							</p:column>
+
+
+							<p:column sortBy="#{usu.login}" filterBy="#{usu.login}"
+								headerText="Login" filterMatchMode="contains"
+								styleClass="pesquisarUsuarioColLogin"
+								filterStyleClass="pesquisarUsuarioColLoginFilter">
+								<h:outputText value="#{usu.login}" />
+							</p:column>
+
+							<p:column sortBy="#{usu.perfil.descricao_final}"
+								filterBy="#{usu.perfil.descricao_final}" headerText="Perfil"
+								filterMatchMode="contains"
+								styleClass="pesquisarUsuarioColCódigo"
+								filterStyleClass="pesquisarUsuarioColIdFilter">
+								<h:outputText value="#{usu.perfil.descricao_final}" />
+							</p:column>
+
+
+							
+	
+							</p:dataTable>
+
+
+					</p:tab>
+					
+
+				</p:tabView>
+
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+</body>
+
+</html>

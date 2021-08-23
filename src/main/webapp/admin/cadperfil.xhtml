@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+<h:head>
+
+<script>
+
+function confirmaExclusao(){
+	return window.confirm("Tem certeza que deseja excluir?");
+}
+	
+</script>
+
+		<!-- Diálogo de confirmação de exclusão de cliente  de EXEMPLO-->
+			<p:confirmDialog message="Tem certeza que deseja excluir o cliente?"
+			widgetVar="confirmacao">
+			<p:commandButton value="Sim" update="tabelaCliente " process="@this"
+				oncomplete="confirmacao.hide(); return false;"
+				action="#{clienteMB.excluirCliente}" />
+			<p:button value="Não" onclick="confirmacao.hide(); return false;" />
+		    </p:confirmDialog>
+
+</h:head>
+
+<body>
+	<ui:composition template="template.xhtml">
+		<ui:define name="conteudo">
+			<h:form>
+
+				<p:messages />
+
+				<p:tabView>
+
+					<p:tab title="Cadastro">
+						<p:panelGrid columns="2">
+
+					<f:facet name="header">
+						Tipo de Perfil
+					</f:facet>
+
+							
+
+							<h:outputLabel value="Descrição:" />
+							<p:inputText value="#{perfilController.perfil.descricao}" required="true" requiredMessage="Insira uma Descrição!" autocomplete="off"  styleClass="campos" onkeyup="soMaiusculas(this)"/>
+
+							<f:facet  name="footer" >
+								<div style="text-align: center">
+								
+								
+							
+								
+									<p:commandButton actionListener="#{perfilController.salvar}"
+										icon="ui-icon-check" value="Salvar" update="@form"
+										process="@form" />
+
+									<p:commandButton
+										
+										icon="ui-icon-check" value="Cancelar" update="@form" 
+										process="@this" onclick="window.location='index.xhtml';" />
+							
+								
+								</div>
+							</f:facet>
+
+						</p:panelGrid>
+						<h:inputHidden value="#{perfilController.perfil.codperfil}" />
+						
+						
+					</p:tab>
+
+
+					<p:tab title="Lista de Perfis">
+						<p:dataTable value="#{perfilController.perfils}" var="perf" rows="10" style="text-align:center" paginator="true" paginatorAlwaysVisible="false"
+							border="1" emptyMessage="Não existem resultados para esta pesquisa.">
+							<f:facet name="header">Lista de Perfis</f:facet>
+
+							<p:column sortBy="#{perf.codperfil}" filterBy="#{perf.codperfil}"
+                            headerText="Código" filterMatchMode="contains"
+                            styleClass="pesquisarUsuarioColCódigo"
+                            filterStyleClass="pesquisarUsuarioColIdFilter">
+                           <h:outputText value="#{perf.codperfil}" />
+                           </p:column>
+							
+							
+							<p:column sortBy="#{perf.descricao_final}" filterBy="#{perf.descricao_final}"
+                            headerText="Descrição" filterMatchMode="contains"
+                            styleClass="pesquisarUsuarioColDescricao"
+                            filterStyleClass="pesquisarUsuarioColIdFilter">
+                           <h:outputText value="#{perf.descricao_final}" />
+                           </p:column>
+							
+                           
+
+                           
+								
+
+							<p:column>
+								<f:facet name="header"><h3>Excluir / Alterar</h3></f:facet>
+								<p:commandButton
+									actionListener="#{perfilController.excluir}"
+									value="Excluir" update="@form" process="@this"
+									 icon="ui-icon-trash" title="Excluir" 
+									onclick="if (!confirm('Confirma a exclusão do Perfil #{perf.descricao} ?')) return false;">
+								</p:commandButton>
+								<p:commandButton
+									actionListener="#{perfilController.editar}"
+									icon="ui-icon-pencil"  title="Editar" 
+									value="Editar" update="@form" process="@this" />
+					
+					</p:column>
+				</p:dataTable>
+				
+				
+ <!-- 			confirmação de exclusao método alternativo-->
+	 <!-- 	<p:confirmDialog 
+		  widgetVar="Confirmacao"
+		  message="Tem certeza que deseja excluir?" header="Aviso"
+		  severity="alert" closable="true">
+		
+	         <p:commandButton value="Sim" title="Sim" alt="Sim"
+	         actionListener="#{usuarioController.excluir(usu)}"
+	         onclick="confirmacao.hide()" 
+	         update="@form" 
+	         process="@this" />
+ 	         
+	         
+	         <p:commandButton value="Não" 
+	         onclick="confirmacao.hide()"	/>
+         </p:confirmDialog>			                     -->		
+					
+															
+						
+					</p:tab>
+
+				</p:tabView>
+
+			</h:form>
+		</ui:define>
+	
+	</ui:composition>
+</body>	
+
+</html>

@@ -1,0 +1,39 @@
+@CHARSET "UTF-8";
+
+.ui-layout, .ui-layout-unit {	
+	top: 0px;
+	bottom: 0px;
+	margin: 0 0 0 0px;
+	padding: 0 0 0 0 px;	
+	position: absolute;
+	border: none !important;
+	border-spacing: 0px !important;	
+}
+
+.ui-picklist .ui-picklist-list{
+	width: 100% !important;
+}
+
+.ui-megamenu .ui-menu-list {
+	width: 400px;
+}
+
+.ui-fieldset .ui-fieldset-legend {
+    background: none !important;
+    border:none !important;
+}
+
+.ui-growl{
+	position:fixed;
+	top:50%;
+	right:50%;
+	width:500px;
+}
+.ui-growl-message {
+	font-size: 15px;
+}
+
+.ui-selectonemenu-label {
+	font-weight: bold !important;		
+}
+

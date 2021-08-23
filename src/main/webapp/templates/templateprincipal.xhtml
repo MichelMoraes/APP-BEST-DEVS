@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{request.contextPath}/resources/imagens/favicon.ico" />
+	<title><ui:insert name="titulo">Sistema Best Devs from Git</ui:insert></title>
+	<h:outputStylesheet library="css" name="estilo.css" />
+	<h:outputStylesheet library="css" name="estilo_primefaces.css" />
+	<h:outputScript library="js" name="funcoes.js" />
+	<h:outputStylesheet
+		name="webjars/font-awesome/4.4.0/css/font-awesome.css" />
+	<h:outputScript library="js" name="locale-primefaces.js" />
+
+</h:head>
+
+<h:body>
+	
+
+	<!-- Chama as Funcoes na pasta  Webapp -->
+	<h:outputScript library="js" name="funcoes.js" />
+
+	<div id="dialog">
+		<ui:insert name="dialog" />
+	</div>
+
+	<p:layout fullPage="true" id="container"
+		style="width:1280px; border: none !important; padding:0px; margin-bottom:0px;">
+		
+		<p:layoutUnit id="topo" position="north" resizable="false" size="90"
+			closable="false"
+			style="border: none !important; padding:0px; margin-bottom:0px;">
+
+			<div id="instituto"
+				style="border: none !important; padding: 0px; margin-top: 37px; margin-bottom: 0px;">
+				<div style="float: left; margin-top: 2px; margin-left: 80px;">
+
+				</div>
+				<div style="float: right; margin-top: 2px; padding-right: 5px;">
+
+				</div>
+			</div>
+
+			<div id="logotipo"
+				style="border: none !important; padding: 0px; margin-bottom: 0px;">
+
+				<div
+					style="float: left; margin-left: 0px; margin-top: 0px; padding: 7px;">
+					<h:graphicImage library="imagens" name="logotipo.png"
+						style="top:0px; padding-top:0px;" />
+				</div>
+
+				<div style="float: left; margin-top: 13px;">
+
+					<!-- Medicina -->
+					
+					<h:outputText value="APP Best Devs from Git"
+						style="color:black;
+							 font-family:Arial; font-style:italic; ont-weight: bold; font-size: 26pt; 
+							 text-shadow: #000 1px 1px 0px;"
+						/>
+
+
+				</div>
+
+				<div style="float: right; margin-top: -6px; padding: 5px;">
+					<h:form>
+
+					</h:form>
+
+				</div>
+				<div style="float: right; margin-top: 7px; padding: 0px;">
+
+					<ui:insert name="topo" />
+
+
+				</div>
+
+
+			</div>
+
+
+
+		</p:layoutUnit>
+
+
+
+		<p:layoutUnit id="corpo" position="center"
+			style="border: none !important; margin-top:0px; top:0px;padding:0px;">
+			<div id="menu"
+				style="border: none !important; margin-top: 0px; top: 0px; padding: 0px;">
+
+			</div>
+			<div id="corpo">
+				<ui:insert name="corpo" />
+				<p:dialog widgetVar="dlgAguarde" draggable="false" closable="false"
+					resizable="false" showHeader="false">
+					<h:panelGrid columns="2" style="vertical-align: middle;">
+						<p:graphicImage name="espera.gif" library="imagens" />
+						<h:outputText value="Aguarde..." />
+					</h:panelGrid>
+				</p:dialog>
+				<p:ajaxStatus id="ajs1" onstart="PF('dlgAguarde').show()"
+					oncomplete="PF('dlgAguarde').hide()" />
+			</div>
+		</p:layoutUnit>
+
+		<p:layoutUnit id="rodape" position="south" size="23" resizable="false"
+			closable="false" collapsible="true"
+			style="border: none !important; padding: 0px;">
+			<div id="rodape" style="margin-top: 0px; padding: 0px;">
+				<h:panelGrid columns="2" style="width:100%;"
+					columnClasses="colunaEsquerda, colunaDireita">											
+							
+					<a href="" target="_blank"><b>Desenvolvido por: Michel Moraes</b></a>
+				</h:panelGrid>
+
+			</div>
+
+		</p:layoutUnit>
+
+
+
+	</p:layout>
+
+
+</h:body>
+</html>

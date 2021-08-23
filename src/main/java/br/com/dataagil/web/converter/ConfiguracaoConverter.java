@@ -1,0 +1,45 @@
+package br.com.dataagil.web.converter;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import br.com.dataagil.entity.Configuracao;
+import br.com.dataagil.exception.ServiceException;
+import br.com.dataagil.service.ConfiguracaoService;
+
+@Component("configuracaoConverter")
+public class ConfiguracaoConverter implements Converter {
+	@Autowired
+	private ConfiguracaoService configuracaoService;
+
+	@Override
+	public Object getAsObject(FacesContext context, UIComponent component,
+			String value) {
+
+
+		
+		try {
+			return configuracaoService.buscarPorId(Integer.parseInt(value));
+		} catch (NumberFormatException e) {
+			return null;
+		} catch (ServiceException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public String getAsString(FacesContext context, UIComponent component,
+			Object value) {
+		if (value instanceof Configuracao) {
+			Configuracao configuracao = (Configuracao) value;
+			return configuracao.getCodconfiguracao().toString();
+		}
+		return "";
+
+	}
+
+}

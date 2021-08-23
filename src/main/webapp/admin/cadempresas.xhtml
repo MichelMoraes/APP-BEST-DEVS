@@ -1,0 +1,436 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+<h:head>
+
+	<script>
+
+function confirmaExclusao(){
+	return window.confirm("Tem certeza que deseja SAIR?");
+}
+	
+</script>
+
+
+
+</h:head>
+
+<body>
+	<ui:composition template="template.xhtml">
+		<ui:define name="conteudo">
+			<h:form >
+
+				<p:messages />
+
+				<p:tabView id="tabview">
+
+					<p:tab title="Cadastro" id="a" >
+
+						<p:panelGrid columns="4" styleClass="ui-noborder">
+
+							<f:facet name="header">
+						Dados da configuracao
+					</f:facet>
+
+
+							<h:outputLabel value="Nome:" />
+							<p:inputText value="#{configuracaoController.configuracao.nomeFantasia}" size="35"
+								required="true" requiredMessage="Insira um Nome!"
+								autocomplete="off" label="campos" onkeyup="soMaiusculas(this)"/>
+
+
+							<h:outputLabel value="Cidade:" />
+							<p:selectOneMenu value="#{configuracaoController.configuracao.cidade}"
+								converter="#{cidadeConverter}" style="width:274px" size="35"
+								required="true" requiredMessage="Selecione uma Cidade!">
+
+								<f:selectItem itemValue="" itemLabel="Selecione uma cidade..." size="35"/>
+
+								<f:selectItems value="#{cidadeController.cidades}" var="c"
+									itemLabel="#{c.nome}" required="=true" size="35" />
+
+							</p:selectOneMenu>
+
+
+
+
+							<h:outputLabel value="Rua:" />
+							<p:inputText value="#{configuracaoController.configuracao.rua}" size="35"
+								maxlength="30" required="false"
+								requiredMessage="Insira uma Rua!" autocomplete="off" label="campos" onkeyup="soMaiusculas(this)"/>
+
+
+							<h:outputLabel value="Número:" />
+							<p:inputText value="#{configuracaoController.configuracao.numero}"
+								size="35" maxlength="30" required="false"
+								requiredMessage="Insira um Número!" autocomplete="off" label="campos" onkeyup="soMaiusculas(this)"/>
+
+
+
+
+							<h:outputLabel value="Bairro:" />
+							<p:inputText value="#{configuracaoController.configuracao.bairro}"
+								size="35" maxlength="30" required="false"
+								requiredMessage="Insira um Bairro!" autocomplete="off" label="campos" onkeyup="soMaiusculas(this)"/>
+
+							<h:outputLabel value="Endereço/Complemento:" />
+							<p:inputText value="#{configuracaoController.configuracao.endereco}"
+								size="35" required="false" requiredMessage="Insira um Endereço!"
+								autocomplete="off" label="campos" onkeyup="soMaiusculas(this)"/>
+
+
+
+
+							<h:outputLabel value="CEP:" />
+							<p:inputText value="#{configuracaoController.configuracao.cep}" size="35"
+								maxlength="30" required="false" requiredMessage="Insira um CEP!"
+								autocomplete="off" label="campos" onkeyup="soMaiusculas(this)"/>
+
+							<h:outputLabel value="CNPJ:" />
+							<p:inputText value="#{configuracaoController.configuracao.cnpj}" size="35"
+								maxlength="30" required="false"
+								requiredMessage="Insira um CNPJ!" autocomplete="off" label="campos" onkeyup="soMaiusculas(this)"/>
+
+
+
+							<h:outputLabel value="Nome do Proprietário:" />
+							<p:inputText
+								value="#{configuracaoController.configuracao.nomeproprietario}" size="35"
+								maxlength="30" required="true"
+								requiredMessage="Insira o Nome do Proprietário!"
+								autocomplete="off" label="campos" onkeyup="soMaiusculas(this)"/>
+
+							<h:outputLabel value="Slogan:" />
+							<p:inputText value="#{configuracaoController.configuracao.slogan}"
+								size="35" maxlength="30" required="false"
+								requiredMessage="Insira um Slogan!" autocomplete="off" label="campos" onkeyup="soMaiusculas(this)"/>
+
+							<h:outputLabel value="Telefone:" />
+							<p:inputText value="#{configuracaoController.configuracao.telefone}"
+								size="35" maxlength="30" required="false"
+								requiredMessage="Insira um Telefone!" autocomplete="off" label="campos" onkeyup="soMaiusculas(this)"/>
+
+							<h:outputLabel value="Celular:" />
+							<p:inputText value="#{configuracaoController.configuracao.celular}"
+								size="35" maxlength="30" required="false"
+								requiredMessage="Insira um Celular!" autocomplete="off" label="campos" onkeyup="soMaiusculas(this)"/>
+
+							<h:outputLabel value="E-mail:" />
+							<p:inputText value="#{configuracaoController.configuracao.email}" size="35"
+								maxlength="30" required="false"
+								requiredMessage="Insira um E-mail!" autocomplete="off" label="campos" onkeyup="soMaiusculas(this)"/>
+
+
+
+
+
+
+
+							<f:facet name="footer">
+								<div style="text-align: center">
+
+
+
+									<p:commandButton actionListener="#{configuracaoController.salvar}" 
+										icon="ui-icon-check" value="Salvar" update="@form, :formMenu:dtinicio"
+										process="@form" />
+
+									<p:commandButton icon="ui-icon-check" value="Limpar"
+										update="@form" process="@this"
+										actionListener="#{configuracaoController.cancelar}" />
+
+
+								</div>
+							</f:facet>
+
+						</p:panelGrid>
+						
+					<h:inputHidden value="#{configuracaoController.configuracao.codconfiguracao}" />
+						
+						
+						
+					</p:tab>
+
+     				<p:tab title="Editar"  id="b">
+						<p:dataTable value="#{configuracaoController.configuracaos}" var="emp"
+							rows="10" paginator="true" paginatorAlwaysVisible="false"
+							border="1" style="text-align:center">
+							<f:facet name="header">Lista de configuracaos</f:facet>
+
+							
+							<p:column sortBy="#{emp.codconfiguracao}" filterBy="#{emp.codconfiguracao}"
+								headerText="Código" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColCódigo"
+								filterStyleClass="pesquisarconfiguracaoColIdFilter">
+								<h:outputText value="#{emp.codconfiguracao}" />
+							</p:column>
+
+
+							<p:column sortBy="#{emp.nomeFantasia}" filterBy="#{emp.nomeFantasia}"
+								headerText="Nome" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColNome"
+								filterStyleClass="pesquisarconfiguracaoColNomeFilter">
+								<h:outputText value="#{emp.nomeFantasia}" />
+							</p:column>
+
+							<p:column sortBy="#{emp.rua}" filterBy="#{emp.rua}"
+								headerText="Rua" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColrua"
+								filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+								<h:outputText value="#{emp.rua}" />
+							</p:column>
+
+							<p:column sortBy="#{emp.numero}" filterBy="#{emp.numero}"
+								headerText="Número" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColNumero"
+								filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+								<h:outputText value="#{emp.numero}" />
+							</p:column>
+
+							<p:column sortBy="#{emp.bairro}" filterBy="#{emp.bairro}"
+								headerText="Bairro" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColbairro"
+								filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+								<h:outputText value="#{emp.bairro}" />
+							</p:column>
+
+
+							<p:column sortBy="#{emp.endereco}" filterBy="#{emp.endereco}"
+								headerText="End/Complemento" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColEndereco"
+								filterStyleClass="pesquisarconfiguracaoColEnderecoFilter">
+								<h:outputText value="#{emp.endereco}" />
+							</p:column>
+							  
+                           <p:column sortBy="#{emp.cep}" filterBy="#{emp.cep}"
+                            headerText="CEP" filterMatchMode="contains"
+                            styleClass="pesquisarconfiguracaoColbairro"
+                            filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+                           <h:outputText value="#{emp.bairro}" />
+                           </p:column>
+                           
+                           <p:column sortBy="#{emp.cnpj}" filterBy="#{emp.cnpj}"
+                            headerText="CNPJ" filterMatchMode="contains"
+                            styleClass="pesquisarconfiguracaoColCNPJ"
+                            filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+                           <h:outputText value="#{emp.cnpj}" />
+                           </p:column>
+                           
+							<p:column sortBy="#{emp.nomeFantasiaproprietario}"
+								filterBy="#{emp.nomeFantasiaproprietario}"
+								headerText="Nome do Proprietario" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColbairro"
+								filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+								<h:outputText value="#{emp.nomeFantasiaproprietario}" />
+							</p:column>
+							
+                           <p:column sortBy="#{emp.slogan}" filterBy="#{emp.slogan}"
+                            headerText="Slogan" filterMatchMode="contains"
+                            styleClass="pesquisarconfiguracaoColbairro"
+                            filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+                           <h:outputText value="#{emp.slogan}" />
+                           </p:column>
+                           
+							<p:column sortBy="#{emp.telefone}" filterBy="#{emp.telefone}"
+								headerText="Telefone" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColbairro"
+								filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+								<h:outputText value="#{emp.telefone}" />
+							</p:column>
+
+							<p:column sortBy="#{emp.celular}" filterBy="#{emp.celular}"
+								headerText="Celular" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColbairro"
+								filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+								<h:outputText value="#{emp.celular}" />
+							</p:column>
+							
+                           <p:column sortBy="#{emp.email}" filterBy="#{emp.email}"
+                            headerText="email" filterMatchMode="contains"
+                            styleClass="pesquisarconfiguracaoColbairro"
+                            filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+                           <h:outputText value="#{emp.email}" />
+                           </p:column>		
+                           
+							<p:column>
+
+								<f:facet name="header"><h3>Excluir / Alterar</h3></f:facet>
+								<p:commandButton
+									actionListener="#{configuracaoController.excluir}"
+									value="Excluir" update="@form,  :formMenu:dtinicio" process="@this"
+									icon="ui-icon-trash" title="Excluir"
+									onclick="if (!confirm('Confirma a exclusão da configuracao: #{emp.nomeFantasia} ?')) return false;">
+								</p:commandButton>
+								<p:commandButton
+									actionListener="#{configuracaoController.editar}"
+									icon="ui-icon-pencil" title="Editar" value="Editar"
+									update="@form" process="@this" />
+
+							</p:column>
+						</p:dataTable>
+
+
+									
+							<p:confirmDialog 
+		  widgetVar="Confirmacao"
+		  message="Tem certeza que deseja excluir?" header="Aviso"
+		  severity="alert" closable="true">
+		
+	         <p:commandButton value="Sim" title="Sim" alt="Sim"
+	         actionListener="#{configuracaoController.excluir}"
+	         onclick="confirmacao.hide()" 
+	         update="@form" 
+	         process="@this" />
+ 	         
+	         
+	         <p:commandButton value="Não" 
+	         onclick="confirmacao.hide()"	/>
+         </p:confirmDialog>			                    
+
+
+
+					</p:tab> 
+					
+					
+					
+				
+<!-- 
+     				<p:tab title="Imprimir"  >
+						<p:dataTable value="#{configuracaoController.configuracaos}" var="emp"
+							rows="10" paginator="true" paginatorAlwaysVisible="false"
+							border="1" style="text-align:center" id="id2">
+							<f:facet name="header">Lista de configuracaos
+							
+							<f:facet name="footer">	
+							<p:commandButton value="Imprimir" type="button"
+										icon="ui-icon-print" style="margin-bottom: 0px;  margin-right: 2px">
+										<p:printer target="id2" />
+								</p:commandButton>
+								
+								</f:facet>
+							
+							</f:facet>
+
+							
+							<p:column sortBy="#{emp.codconfiguracao}" filterBy="#{emp.codconfiguracao}"
+								headerText="Código" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColCódigo"
+								filterStyleClass="pesquisarconfiguracaoColIdFilter">
+								<h:outputText value="#{emp.codconfiguracao}" />
+							</p:column>
+
+
+							<p:column sortBy="#{emp.nomeFantasia}" filterBy="#{emp.nomeFantasia}"
+								headerText="Nome" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColNome"
+								filterStyleClass="pesquisarconfiguracaoColNomeFilter">
+								<h:outputText value="#{emp.nomeFantasia}" />
+							</p:column>
+
+							<p:column sortBy="#{emp.rua}" filterBy="#{emp.rua}"
+								headerText="Rua" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColrua"
+								filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+								<h:outputText value="#{emp.rua}" />
+							</p:column>
+
+							<p:column sortBy="#{emp.numero}" filterBy="#{emp.numero}"
+								headerText="Número" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColNumero"
+								filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+								<h:outputText value="#{emp.numero}" />
+							</p:column>
+
+							<p:column sortBy="#{emp.bairro}" filterBy="#{emp.bairro}"
+								headerText="Bairro" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColbairro"
+								filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+								<h:outputText value="#{emp.bairro}" />
+							</p:column>
+
+
+							<p:column sortBy="#{emp.endereco}" filterBy="#{emp.endereco}"
+								headerText="End/Complemento" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColEndereco"
+								filterStyleClass="pesquisarconfiguracaoColEnderecoFilter">
+								<h:outputText value="#{emp.endereco}" />
+							</p:column>
+							  
+                           <p:column sortBy="#{emp.cep}" filterBy="#{emp.cep}"
+                            headerText="CEP" filterMatchMode="contains"
+                            styleClass="pesquisarconfiguracaoColbairro"
+                            filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+                           <h:outputText value="#{emp.bairro}" />
+                           </p:column>
+                           
+                           <p:column sortBy="#{emp.cnpj}" filterBy="#{emp.cnpj}"
+                            headerText="CNPJ" filterMatchMode="contains"
+                            styleClass="pesquisarconfiguracaoColCNPJ"
+                            filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+                           <h:outputText value="#{emp.cnpj}" />
+                           </p:column>
+                           
+							<p:column sortBy="#{emp.nomeFantasiaproprietario}"
+								filterBy="#{emp.nomeFantasiaproprietario}"
+								headerText="Nome do Proprietario" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColbairro"
+								filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+								<h:outputText value="#{emp.nomeFantasiaproprietario}" />
+							</p:column>
+							
+                           <p:column sortBy="#{emp.slogan}" filterBy="#{emp.slogan}"
+                            headerText="Slogan" filterMatchMode="contains"
+                            styleClass="pesquisarconfiguracaoColbairro"
+                            filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+                           <h:outputText value="#{emp.slogan}" />
+                           </p:column>
+                           
+							<p:column sortBy="#{emp.telefone}" filterBy="#{emp.telefone}"
+								headerText="Telefone" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColbairro"
+								filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+								<h:outputText value="#{emp.telefone}" />
+							</p:column>
+
+							<p:column sortBy="#{emp.celular}" filterBy="#{emp.celular}"
+								headerText="Celular" filterMatchMode="contains"
+								styleClass="pesquisarconfiguracaoColbairro"
+								filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+								<h:outputText value="#{emp.celular}" />
+							</p:column>
+							
+                           <p:column sortBy="#{emp.email}" filterBy="#{emp.email}"
+                            headerText="email" filterMatchMode="contains"
+                            styleClass="pesquisarconfiguracaoColbairro"
+                            filterStyleClass="pesquisarconfiguracaoColbairroFilter">
+                           <h:outputText value="#{emp.email}" />
+                           </p:column>		
+                           
+							
+						</p:dataTable>
+
+
+						
+
+
+
+					</p:tab>
+					 -->
+					
+
+				</p:tabView>
+
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+</body>
+
+</html>
