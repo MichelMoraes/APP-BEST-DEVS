@@ -55,9 +55,15 @@ INSERT INTO usuario(
 JSF - PRIMEFACES + CSS + XHTML 
 
 # Ambiente Amazon Rodando 
-URL: http://54.236.97.207:8090/appbestdevs/
+Criei um servidor em https://lightsail.aws.amazon.com/
+
+URL APP : http://54.236.97.207:8090/appbestdevs/
 Usuário: MICHEL
 SENHA: 123456
 
 # Funcionalidade
 Um simples app com CRUD de usuários, usa REST TEMPLATE para buscar USERS da API DO GIT e persiste esses dados no banco de dados na tabela DEVELOPER, mostrando na tela de DEVS os devs em uma DATATABLE.
+
+
+# Observação para SOCIN
+Já trabalhei em times de DESENVOLVIMENTO ÁGIL com SCRUM, usando SPRING BOOT, SPRING DATA JPA ( REPOSITORYS EXTENDS JPA), SWAGGER, ENDPOINTS com VERBOS HTTP etc.
