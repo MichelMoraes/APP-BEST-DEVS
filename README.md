@@ -44,6 +44,7 @@ Inserts:
 INSERT INTO perfil(
 	codperfil, descricao, descricao_final)
 	VALUES (1, 'ROLE_ADMIN', 'ADMINISTRADOR');
+	
 INSERT INTO usuario(
 	codusuario, adminsistema, ativo, login, nome, senha, codperfil)
 	VALUES (1, 'S', TRUE, 'MICHEL', 'MICHEL', '123456', 1);
