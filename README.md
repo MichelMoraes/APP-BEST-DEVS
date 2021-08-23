@@ -18,6 +18,28 @@ CREATE DATABASE teste
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1;
     
+ CREATE TABLE public.perfil(
+    codperfil integer NOT NULL,
+    descricao character varying(255) COLLATE pg_catalog."default",
+    descricao_final character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT perfil_pkey PRIMARY KEY (codperfil)
+)
+
+CREATE TABLE public.usuario(
+    codusuario integer NOT NULL,
+    adminsistema character varying(255) COLLATE pg_catalog."default",
+    ativo boolean,
+    login character varying(255) COLLATE pg_catalog."default",
+    nome character varying(255) COLLATE pg_catalog."default",
+    senha character varying(255) COLLATE pg_catalog."default",
+    codperfil integer,
+    CONSTRAINT usuario_pkey PRIMARY KEY (codusuario),
+    CONSTRAINT fk_7u826ttt3eayjlearjh5sulgc FOREIGN KEY (codperfil)
+        REFERENCES public.perfil (codperfil) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+    
 Inserts:
 INSERT INTO perfil(
 	codperfil, descricao, descricao_final)
